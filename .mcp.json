@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "wsl.exe",
+            "args": [
+                "/usr/bin/php8.3",
+                "/home/alisha/6CS056/6CS056-Workshop/workshop-temp/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
