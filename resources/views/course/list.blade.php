@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Courses</title>
-</head>
+@section('title', 'Courses')
 
-<body>
+@section('content')
 
     <h1>Courses</h1>
 
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
+    <a href="{{ route('courses.create') }}">Create Course</a>
 
-    <a href="/course/create">Create Course</a>
+    <br><br>
 
     <table border="1" cellpadding="10">
 
@@ -24,6 +19,8 @@
                 <th>Description</th>
                 <th>Duration</th>
                 <th>Fee</th>
+                <th>Difficulty</th>
+                <th>Active</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -38,18 +35,20 @@
                     <td>{{ $course->description }}</td>
                     <td>{{ $course->duration }}</td>
                     <td>{{ $course->fee }}</td>
+                    <td>{{ $course->difficulty }}</td>
+                    <td>{{ $course->is_active ? 'Yes' : 'No' }}</td>
 
                     <td>
-                        <a href="/courses/{{ $course->id }}">
+                        <a href="{{ route('courses.show', $course->id) }}">
                             View
                         </a>
 
-                        <a href="/courses/{{ $course->id }}/edit">
+                        <a href="{{ route('courses.edit', $course->id) }}">
                             Edit
                         </a>
 
                         <form
-                            action="/courses/{{ $course->id }}"
+                            action="{{ route('courses.destroy', $course->id) }}"
                             method="POST"
                             style="display:inline"
                         >
@@ -66,7 +65,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">
+                    <td colspan="8">
                         No courses found.
                     </td>
                 </tr>
@@ -77,6 +76,4 @@
 
     </table>
 
-</body>
-
-</html>
+@endsection

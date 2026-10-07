@@ -1,28 +1,13 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Edit Student</title>
-</head>
+@section('title', 'Edit Student')
 
-<body>
+@section('content')
 
     <h1>Edit Student</h1>
 
-    @if($errors->any())
-        <div>
-            <h3>Please fix the following errors:</h3>
-
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <form
-        action="/students/{{ $student->id }}"
+        action="{{ route('students.update', $student->id) }}"
         method="POST"
     >
         @csrf
@@ -85,7 +70,7 @@
                 type="date"
                 id="date_of_birth"
                 name="date_of_birth"
-                value="{{ old('date_of_birth', $student->date_of_birth) }}"
+                value="{{ old('date_of_birth', $student->date_of_birth?->format('Y-m-d')) }}"
             >
         </div>
 
@@ -99,10 +84,8 @@
 
     <br>
 
-    <a href="/students">
+    <a href="{{ route('students.index') }}">
         Back to Students
     </a>
 
-</body>
-
-</html>
+@endsection

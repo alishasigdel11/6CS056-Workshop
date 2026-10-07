@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Students</title>
-</head>
+@section('title', 'Students')
 
-<body>
+@section('content')
 
     <h1>Students</h1>
 
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
+    <a href="{{ route('students.create') }}">Create Student</a>
 
-   <a href="/student/create">Create Student</a>
+    <br><br>
 
     <table border="1" cellpadding="10">
 
@@ -38,16 +33,16 @@
                     <td>{{ $student->phone }}</td>
 
                     <td>
-                        <a href="/students/{{ $student->id }}">
+                        <a href="{{ route('students.show', $student->id) }}">
                             View
                         </a>
 
-                        <a href="/students/{{ $student->id }}/edit">
+                        <a href="{{ route('students.edit', $student->id) }}">
                             Edit
                         </a>
 
                         <form
-                            action="/students/{{ $student->id }}"
+                            action="{{ route('students.destroy', $student->id) }}"
                             method="POST"
                             style="display:inline"
                         >
@@ -75,6 +70,4 @@
 
     </table>
 
-</body>
-
-</html>
+@endsection

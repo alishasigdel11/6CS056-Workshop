@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Student Details</title>
-</head>
+@section('title', 'Student Details')
 
-<body>
+@section('content')
 
     <h1>Student Details</h1>
 
@@ -36,19 +33,22 @@
 
     <p>
         <strong>Date of Birth:</strong>
-        {{ $student->date_of_birth }}
+        {{ $student->date_of_birth?->format('Y-m-d') }}
     </p>
 
-    <a href="/students/{{ $student->id }}/edit">
+    <p>
+        <strong>Age:</strong>
+        {{ $student->age ?? 'N/A' }}
+    </p>
+
+    <a href="{{ route('students.edit', $student->id) }}">
         Edit Student
     </a>
 
     <br>
 
-    <a href="/students">
+    <a href="{{ route('students.index') }}">
         Back to Students
     </a>
 
-</body>
-
-</html>
+@endsection

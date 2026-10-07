@@ -1,28 +1,13 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app')
 
-<head>
-    <title>Edit Course</title>
-</head>
+@section('title', 'Edit Course')
 
-<body>
+@section('content')
 
     <h1>Edit Course</h1>
 
-    @if($errors->any())
-        <div>
-            <h3>Please fix the following errors:</h3>
-
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <form
-        action="/courses/{{ $course->id }}"
+        action="{{ route('courses.update', $course->id) }}"
         method="POST"
     >
         @csrf
@@ -56,9 +41,10 @@
             <label for="duration">Duration</label>
 
             <input
-                type="text"
+                type="number"
                 id="duration"
                 name="duration"
+                min="1"
                 value="{{ old('duration', $course->duration) }}"
             >
         </div>
@@ -73,8 +59,42 @@
                 id="fee"
                 name="fee"
                 step="0.01"
+                min="0"
                 value="{{ old('fee', $course->fee) }}"
             >
+        </div>
+
+        <br>
+
+        <div>
+            <label for="difficulty">Difficulty</label>
+
+            <select id="difficulty" name="difficulty">
+                <option value="Easy" {{ old('difficulty', $course->difficulty) == 'Easy' ? 'selected' : '' }}>
+                    Easy
+                </option>
+                <option value="Medium" {{ old('difficulty', $course->difficulty) == 'Medium' ? 'selected' : '' }}>
+                    Medium
+                </option>
+                <option value="Hard" {{ old('difficulty', $course->difficulty) == 'Hard' ? 'selected' : '' }}>
+                    Hard
+                </option>
+            </select>
+        </div>
+
+        <br>
+
+        <div>
+            <label for="is_active">Active</label>
+
+            <select id="is_active" name="is_active">
+                <option value="1" {{ old('is_active', $course->is_active) ? 'selected' : '' }}>
+                    Yes
+                </option>
+                <option value="0" {{ !old('is_active', $course->is_active) ? 'selected' : '' }}>
+                    No
+                </option>
+            </select>
         </div>
 
         <br>
@@ -87,10 +107,8 @@
 
     <br>
 
-    <a href="/courses">
+    <a href="{{ route('courses.index') }}">
         Back to Courses
     </a>
 
-</body>
-
-</html>
+@endsection
